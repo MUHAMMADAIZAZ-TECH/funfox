@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import {
-  SignIn,
-  SignUp,
-} from "../../apis";
+import axios from "axios";
+
+axios.defaults.baseURL = "http://localhost:3000/api/";
 
 const initialState = {
   message: null,
@@ -26,9 +25,12 @@ export const authSlice = createSlice({
     },
     authenticateUser: (state, action) => {
       state.error = null;
-      localStorage.setItem("accessToken",JSON.stringify(action.payload.accessToken))
-      localStorage.setItem("user",JSON.stringify(action.payload.user))
-      localStorage.setItem("isauthenticated",action.payload.success)
+      localStorage.setItem(
+        "accessToken",
+        JSON.stringify(action.payload.accessToken)
+      );
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
+      localStorage.setItem("isauthenticated", action.payload.success);
       state.User = action.payload.user;
       state.isAuthenticated = action.payload.success;
       state.open = true;
@@ -48,9 +50,9 @@ export const authSlice = createSlice({
       })
       .addCase(signin.fulfilled, (state, action) => {
         state.loading = false;
-        localStorage.setItem("user",JSON.stringify(action.payload.user))
-        localStorage.setItem("accessToken",action.payload.accessToken)
-        localStorage.setItem("isauthenticated",action.payload.success)
+        localStorage.setItem("user", JSON.stringify(action.payload.user));
+        localStorage.setItem("accessToken", action.payload.accessToken);
+        localStorage.setItem("isauthenticated", action.payload.success);
         state.User = action.payload.user;
         state.isAuthenticated = action.payload.success;
         state.message = action.payload.message;
@@ -76,21 +78,25 @@ export const authSlice = createSlice({
       });
   },
 });
-export const signin = createAsyncThunk(
-  "authentication/signin",
-  async ({ state }) => {
-    const response = await SignIn(state);
-    return response;
+export const signin = createAsyncThunk("auth/signin", async ({ state }) => {
+  try {
+    const response = await axios.post(`user`, state);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
   }
-);
+});
 export const signup = createAsyncThunk(
   "authentication/signup",
   async ({ state }) => {
-    const response = await SignUp(state);
-    return response;
+    try {
+      const response = await axios.post(`user`, state);
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
   }
 );
-
 
 export const authstate = (state) => state.auth;
 export const { clearMessage, authenticateUser, resetauthstates, hideMessage } =

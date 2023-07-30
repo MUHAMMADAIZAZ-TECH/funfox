@@ -1,6 +1,3 @@
-import { readTasks } from '../redux/features/tasksSlice'
-import { wrapper } from '../redux/store'
-import TasksList from '../components/TasksList'
 import React from "react";
 import SignIn from './auth/signin';
 import { useSelector } from "react-redux";
@@ -16,7 +13,7 @@ export default function Index() {
     if (token) {
       router.push("/dashboard"); // Replace '/dashboard' with the desired route after successful sign-in
     }
-  }, [ router]);
+  }, [router]);
     return (
         <div className="auth">
         <CssBaseline />
@@ -30,9 +27,3 @@ export default function Index() {
       </div>)
 }
 
-
-export const getServerSideProps = wrapper.getServerSideProps(
-    (store) => async ({ req, res }) => {
-        await store.dispatch(readTasks({ req, res }));
-    }
-);

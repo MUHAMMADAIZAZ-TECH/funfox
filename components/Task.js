@@ -1,10 +1,8 @@
 import Link from "next/link";
 import React from "react";
 import { useDispatch } from "react-redux";
-
 import { deleteTask } from "../redux/features/taskSlice";
 import { readTasks } from "../redux/features/tasksSlice";
-
 export default function Task({ task, onCompleteTask }) {
   const dispatch = useDispatch();
 
@@ -18,13 +16,10 @@ export default function Task({ task, onCompleteTask }) {
     <div style={styles.task}>
       <Link href={`/task/${task._id}`}>Title: {task.title}</Link>
       <Link href={`/task/${task._id}`}>Description: {task.description}</Link>
-      <Link href={`/task/${task._id}`}>
-        Status: {task.status === true ? "completed" : "pending"}
-      </Link>
       <Link href={`/task/${task._id}`}>Group: {task.Group}</Link>
       <div>
-        <button onClick={() => onCompleteTask(task._id)}>
-          Mark as {task.completed ? "Incomplete" : "Completed"}
+        <button onClick={() => onCompleteTask(task._id,!task.status)}>
+          Mark as {task.status ? "Incomplete" : "Completed"}
         </button>
         <Link href={`/update/${task._id}`} passHref>
           <button>Update</button>

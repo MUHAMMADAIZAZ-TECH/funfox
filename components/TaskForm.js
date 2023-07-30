@@ -11,9 +11,9 @@ export default function TaskForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let user;
-      if (typeof window !== "undefined") {
-        user = JSON.parse(localStorage.getItem("user"));
-      }
+    if (typeof window !== "undefined") {
+      user = JSON.parse(localStorage.getItem("user"));
+    }
     const formData = {
       title,
       description,
@@ -22,7 +22,7 @@ export default function TaskForm() {
     await dispatch(createTask(formData)).then(() => {
       dispatch(readTasks());
       setTitle("");
-      setDescription("")
+      setDescription("");
     });
   };
 
@@ -37,7 +37,9 @@ export default function TaskForm() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <textarea
+        <input
+          type="text"
+          autoComplete="off"
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}

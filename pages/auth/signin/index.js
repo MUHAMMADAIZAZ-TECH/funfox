@@ -5,9 +5,11 @@ import { TextInput,CustomButton } from "@/components/UI-Components";
 import { Grid } from "@mui/material";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { signin } from "@/redux/Slicers/Authentication/AuthenticationSlice";
-import { resetuserstates } from "@/redux/Slicers/UserSlicer/UserSlicer";
+import { signin } from "@/redux/features/authSlice";
+import { useRouter } from "next/router";
 const SignIn = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const validationSchema = Yup.object({
     Email: Yup.string()
       .email("Please enter valid email address")
@@ -27,14 +29,12 @@ const SignIn = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      dispatch(signin({ state: values }));
+      dispatch(signin({ state: values })).then(() => {
+       router.push('/dashboard')
+      });
     },
   });
-  const dispatch = useDispatch();
- 
-  useEffect(() => {
-    dispatch(resetuserstates());
-  }, []);
+
   return (
     <React.Fragment>
       <h5 className="form-heading"> Log in to continue</h5>
@@ -81,11 +81,6 @@ const SignIn = () => {
       </Grid>
       <div className="signup-text">
         <Link href="/auth/signup">Doesn't have an account?</Link>
-      </div>
-      <div className="signup-text">
-        One account for Jira, Confluence, Trello and more.
-        <br />
-        Privacy Policy • User Notice
       </div>
     </React.Fragment>
   );

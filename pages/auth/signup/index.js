@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { TextInput, CustomButton } from "../../../components/UI-Components";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "@mui/material";
-import { signup } from "@/redux/Slicers/Authentication/AuthenticationSlice";
+import { signup } from "@/redux/features/authSlice";
 import Link from "next/link";
 import { CssBaseline, Box, Container } from "@mui/material";
 const SignUp = () => {
@@ -129,7 +129,7 @@ const SignUp = () => {
         </Grid>
       </Grid>
       {State.message && <div>{State.message}</div>}
-      <Link href="/auth/signin" className="signup-text">
+      <Link href="/" className="signup-text">
         Already have an Atlassian account? Log in
       </Link>
       <div className="signup-text">

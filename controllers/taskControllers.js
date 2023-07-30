@@ -18,11 +18,9 @@ export const createTask = async (req, res) => {
 };
 
 // Read Tasks (all)
-export const readTasks = async (req, res,data) => {
+export const readTasks = async (req, res) => {
     try {
         const tasks = await Task.find().sort({ createdAt: -1 });
-        const { Group } = data;
-        console.log(data);
         res.status(200).json({
             success: true,
             tasks,
