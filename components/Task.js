@@ -3,6 +3,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../redux/features/taskSlice";
 import { readTasks } from "../redux/features/tasksSlice";
+import { TableRow, TableCell, Button } from "@mui/material";
+
 export default function Task({ task, onCompleteTask }) {
   const dispatch = useDispatch();
 
@@ -13,30 +15,29 @@ export default function Task({ task, onCompleteTask }) {
   };
 
   return (
-    <div style={styles.task}>
-      <Link href={`/task/${task._id}`}>Title: {task.title}</Link>
-      <Link href={`/task/${task._id}`}>Description: {task.description}</Link>
-      <Link href={`/task/${task._id}`}>Group: {task.Group}</Link>
-      <div>
-        <button onClick={() => onCompleteTask(task._id,!task.status)}>
+    <TableRow>
+      <TableCell>
+        <Link href={`/task/${task._id}`}>Title: {task.title}</Link>
+      </TableCell>
+      <TableCell>
+        <Link href={`/task/${task._id}`}>Description: {task.description}</Link>
+      </TableCell>
+      <TableCell>
+        <Link href={`/task/${task._id}`}>Group: {task.Group}</Link>
+      </TableCell>
+      <TableCell>
+        <Button onClick={() => onCompleteTask(task._id, !task.status)}>
           Mark as {task.status ? "Incomplete" : "Completed"}
-        </button>
+        </Button>
+      </TableCell>
+      <TableCell>
         <Link href={`/update/${task._id}`} passHref>
-          <button>Update</button>
+          <Button>Update</Button>
         </Link>
-        <button onClick={() => handleDelete(task._id)}>Delete</button>
-      </div>
-    </div>
+      </TableCell>
+      <TableCell>
+        <Button onClick={() => handleDelete(task._id)}>Delete</Button>
+      </TableCell>
+    </TableRow>
   );
 }
-
-const styles = {
-  task: {
-    display: "flex",
-    justifyContent: "space-between",
-    padding: "8px 10px",
-    marginBottom: "4px",
-    border: "1px solid gray",
-    lineHeight: "25px",
-  },
-};

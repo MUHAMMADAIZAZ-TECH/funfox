@@ -125,6 +125,7 @@ const SignUp = () => {
             size="large"
             fullWidth
             onClick={formik.handleSubmit}
+            className="custom-button"
           />
         </Grid>
       </Grid>

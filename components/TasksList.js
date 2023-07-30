@@ -1,10 +1,11 @@
 import Task from './Task';
 import TaskForm from './TaskForm';
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from 'react';
 import { updateTask } from "../redux/features/taskSlice";
 import { readTasks } from '../redux/features/tasksSlice';
-import { ScreenLoader } from './UI-Components';
+import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+
 
 export default function TasksList() {
     const { tasks } = useSelector((state) => state.tasks);
@@ -46,25 +47,41 @@ export default function TasksList() {
         //   fetchData();
       }, [tasks]);
     return (
-        <>
-            <TaskForm />
-            <br />
-            <div>
-                <h3>Read</h3>
-                {
-                    filteredTasks  && filteredTasks .length !== 0 ? (
-                        filteredTasks .map((task) => (
-                            <Task
-                                key={task._id}
-                                task={task}
-                                onCompleteTask={handleCompleteTask}
-                            />
-                        ))
-                    ) : (
-                        <p>No task!</p>
-                    )
-                }
-            </div>
-        </>
+      <>
+      <TaskForm />
+      <br />
+      <div>
+      <Typography variant="h6" gutterBottom>
+        Tasks List
+      </Typography>
+        {filteredTasks && filteredTasks.length !== 0 ? (
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Title</TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell>Group</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell>Update</TableCell>
+                  <TableCell>Delete</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {filteredTasks.map((task) => (
+                  <Task
+                    key={task._id}
+                    task={task}
+                    onCompleteTask={handleCompleteTask}
+                  />
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <p>No task!</p>
+        )}
+      </div>
+    </>
     );
 }
