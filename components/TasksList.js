@@ -1,14 +1,14 @@
-import { useSelector } from 'react-redux';
-
 import Task from './Task';
 import TaskForm from './TaskForm';
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useEffect, useState } from 'react';
 import { updateTask } from "../redux/features/taskSlice";
 import { readTasks } from '../redux/features/tasksSlice';
+import { ScreenLoader } from './UI-Components';
 
 export default function TasksList() {
     const { tasks } = useSelector((state) => state.tasks);
+  
     const dispatch = useDispatch();
     const [filteredTasks, setFilteredTasks] = useState([]);
     const handleCompleteTask = (id,status) => {
@@ -48,9 +48,6 @@ export default function TasksList() {
     return (
         <>
             <TaskForm />
-            <br />
-            <br />
-            <br />
             <br />
             <div>
                 <h3>Read</h3>

@@ -2,15 +2,11 @@ import { readTask } from '../../redux/features/taskSlice'
 import { wrapper } from '../../redux/store'
 
 import TaskUpdate from '../../components/TaskUpdate'
+import UserDashboard from '@/components/Dashboard/UserDashboard';
 
 
 export default function UpdateId() {
-    return (
-        <div>
-            <h3>Update</h3>
-            <TaskUpdate />
-        </div>
-    )
+    return (<UserDashboard Component={TaskUpdate}/>)
 }
 
 
