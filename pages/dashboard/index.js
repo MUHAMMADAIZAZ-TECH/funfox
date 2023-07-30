@@ -3,6 +3,7 @@ import { wrapper } from '../../redux/store'
 import TasksList from '../../components/TasksList'
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
+import { CustomSnackbar } from '@/components/UI-Components';
 
 
 
@@ -22,6 +23,7 @@ export default function Index() {
                 Logout
             </button>
             <TasksList />
+            <CustomSnackbar/>
         </div>
     );
 }

@@ -11,9 +11,11 @@ const CustomButton = ({
   fullWidth,
   align,
   variant,
+  className
 }) => {
   const memoizedButton = useMemo(() => (
     <Button
+      className={className}
       fullWidth={fullWidth}
       variant={variant}
       size={size}

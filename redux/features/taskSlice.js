@@ -69,9 +69,15 @@ const taskSlice = createSlice({
         task: {},
         loading: null,
         success: null,
-        message: null
+        message: null,
+        open: false
     },
-    reducers: {},
+    reducers: {
+        hideTaskMessage: (state) => {
+            state.open = false;
+            state.message = null;
+          },
+    },
     extraReducers: {
         [HYDRATE]: (state, { payload }) => {
             return {
@@ -86,6 +92,8 @@ const taskSlice = createSlice({
             state.loading = false;
             state.task = payload.task;
             state.success = true;
+            state.open = true;
+            state.message = payload.message;
         },
         [createTask.rejected]: (state, { payload }) => {
             state.loading = false;
@@ -110,6 +118,8 @@ const taskSlice = createSlice({
             state.loading = false;
             state.task = payload.task;
             state.success = true;
+            state.open = true;
+            state.message = payload.message;
         },
         [updateTask.rejected]: (state, { payload }) => {
             state.loading = false;
@@ -121,6 +131,8 @@ const taskSlice = createSlice({
         [deleteTask.fulfilled]: (state, { payload }) => {
             state.loading = false;
             state.success = payload;
+            state.open = true;
+            state.message = payload.message;
         },
         [deleteTask.rejected]: (state, { payload }) => {
             state.loading = false;
@@ -128,5 +140,5 @@ const taskSlice = createSlice({
         }
     },
 });
-
+export const { hideTaskMessage } = taskSlice.actions;
 export default taskSlice.reducer;

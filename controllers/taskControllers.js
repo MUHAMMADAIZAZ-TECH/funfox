@@ -8,6 +8,7 @@ export const createTask = async (req, res) => {
         res.status(201).json({
             success: true,
             task,
+            message:"Successfully Created"
         });
     } catch (error) {
         res.status(500).json({
@@ -67,6 +68,7 @@ export const updateTask = async (req, res) => {
         res.status(200).json({ 
             success: true,
             task: newTask, 
+            message:"Successfully Updated"
         });
     } catch (error) {
         res.status(500).json({
@@ -91,6 +93,7 @@ export const deleteTask = async (req, res) => {
 
         res.status(200).json({
             success: true,
+            message:"Successfully Deleted"
         });
     } catch (error) {
         res.status(500).json({
